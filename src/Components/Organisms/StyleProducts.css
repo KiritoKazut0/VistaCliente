@@ -1,0 +1,26 @@
+/* Estilos generales para pantallas grandes (escritorio y laptops) */
+.container {
+    width: 90%; 
+    margin: 0 auto; 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    
+  }
+  
+  /* Media query para pantallas medianas (tablets) */
+  @media only screen and (max-width: 768px) {
+    .container {
+      width: 90%; /* Ajusta el ancho para tabletas */
+
+    }
+  }
+  
+  /* Media query para pantallas pequeñas (teléfonos) */
+  @media only screen and (max-width: 480px) {
+    .container {
+      width: 95%; /* Ajusta el ancho para teléfonos */
+
+    }
+  }
+  
