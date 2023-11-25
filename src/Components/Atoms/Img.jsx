@@ -11,7 +11,7 @@ function Img ({src, alt, primary}){
 const StyleImg = styled.img`
     width: ${props => props.primary ? "40px": "100%"};
     height: ${props =>props.primary ? "40px": "100%"};
-    object-fit: cover;
+    object-fit:cover;
     margin-left: 10px;
 `;
 

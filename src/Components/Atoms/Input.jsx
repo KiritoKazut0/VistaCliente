@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-function Input({ placeholder, type, name, accept, primary, onChange }) {
+function Input({ placeholder, type, name, accept, primary, onChange , onblur, error}) {
     return (
         <div>
             <StyleInput placeholder={placeholder}
@@ -9,6 +9,8 @@ function Input({ placeholder, type, name, accept, primary, onChange }) {
                 accept={accept}
                 primary={primary}
                 onChange={onChange}
+                onBlur={onblur}
+                error = {error}
             ></StyleInput>
         </div>
 
@@ -22,7 +24,7 @@ const StyleInput = styled.input`
   margin: ${props => props.primary ? "0px 80px 30px 0px" : "0px 12px 28px 12px"};
   border: none; 
   outline: none;
-  border-bottom: 1px solid #868686;
+  border-bottom: ${props => props.error? "2px solid red": "1px solid #868686"};
   font-family: 'Droid Serif', sans-serif;
 
   &:focus {

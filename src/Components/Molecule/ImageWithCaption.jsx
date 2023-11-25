@@ -5,10 +5,10 @@ import UploadImg from "../Atoms/UploadImg";
 import AlertError from "../Atoms/AlertError";
 
 
-const ImageWithCaption = ({ src, alt, description, active, desactive, placeholder, accept, type, onChange, messageError, show }) => {
+const ImageWithCaption = ({ src, alt, description, active, desactive, placeholder, accept, type, onChange, messageError, show}) => {
   return (
     <Figure>
-      <imgContainer>
+      <ImgContainer>
         <Img src={src} alt={alt} />
         <Description primary={desactive}>{description}</Description>
         <UploadImg primary={active}
@@ -18,8 +18,8 @@ const ImageWithCaption = ({ src, alt, description, active, desactive, placeholde
           onChange={onChange}
         ></UploadImg>
 
-      <AlertError show={show} messageError={messageError} ></AlertError>
-      </imgContainer>
+      <AlertError messageError={messageError} show={show} ></AlertError>
+      </ImgContainer>
     
 
     </Figure>
@@ -36,14 +36,15 @@ const Figure = styled.figure`
   
 `;
 
-const imgContainer = styled.div`
+const ImgContainer = styled.div`
  position: relative;
-  width: 0%;
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: absolute;
 `;
 
 export default ImageWithCaption;

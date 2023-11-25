@@ -7,7 +7,7 @@ import ImageWithCaption from "../Molecule/ImageWithCaption";
 import Form from "../Atoms/Form";
 import InfoRegister from "../../Database/DateForms";
 import AlertError from "../Atoms/AlertError";
-
+//-------------------------------------
 import userContext from "../../Context/UserContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -15,32 +15,36 @@ import { useNavigate } from "react-router-dom";
 
 
 function Login() {
+    // uso del contexto 
+    const {Acceso} = useContext(userContext);
+
+    // estados: 
     const [UserName, setUserName] = useState("");
     const [Password, setPassword] = useState("");
     const [Active, setActive] = useState(false);
-    const [ActiveAlert, setActiveAlert] = useState({
-        message: "Usuario o contraseña incorrectos. Por favor, inténtelo de nuevo.",
-        top: "75%",
-        left: "10%",
-        width: "33%",
-        backgraund: "none",
-        color: "red"
-    });
 
-// aqui hago una desustructuracion para poder manipuarlo en la funcion validar datos:
+    //este estado me sirve para estar activando y desactivando las alertas de acuerdo a las validaciones
+    const [MesasageError, setMesasageError] = useState("");
+
+
+//este hook me sirve para establecerle un valor  a acceso, que lo usare para mandarlo a la pagina princiopal o no
+// que en este caso seria la de productos (home)
 const {setAcceso} = useContext(userContext);
+
+//navigate me sirve para redireccionar al usario una vez que el acceso haya sido verdadero
 const navigate = useNavigate();
 
+    //este hook me sirve para que mi estado se este actualizando cada vez que se este presionando una tecla
     const handlerUserName = (event) => {
         setUserName(event.target.value);
-        console.log(event.target.value);
     };
-
+    // y lo mismo pasa para password
     const handlerPassword = (event) => {
         setPassword(event.target.value);
-        console.log(event.target.value);
     };
 
+    //este me sirve para idefinciar, que funcion mandarle a mi input, si es la de password o la de user y asi verficar las 
+    //actualizaciones de cada estado: password y user
     const getChangeHandler = (fieldName) => {
         switch (fieldName) {
             case "Usuario":
@@ -52,37 +56,51 @@ const navigate = useNavigate();
         }
     };
 
-    const obtenerDatosCliente = async (event) => {
-        event.preventDefault();
-        try {
-            const respuesta = await fetch("http://localhost:8080/api/Cliente");
-            const datos = await respuesta.json();
-            console.log(datos);
-            ValidarDatos(datos);
-        } catch (error) {
-            console.error("Error al obtener datos de la api", error);
+
+    //realizar la peticion:
+   const obtenerDatosCliente = (event)=>{
+    event.preventDefault(); 
+
+    fetch("http://localhost:8080/api/Cliente")
+    .then(response => {
+        if (!response.ok) {
+            throw new Error (`Error de red -Código: ${response.status}`);
         }
-    };
+        return response.json();
+    })
+    .then(data=> {
+        console.log(data);
+      ValidarDatos(data);
 
+    })
+    .catch(error =>{
+        console.log ('Error en la solicitud: ',error);
+    })
 
-    const ValidarDatos = (datos) => {
+   } 
 
-        if (datos[0].usuario === UserName && datos[0].contraseña === Password) {
+    const ValidarDatos = (data) => {
+        // recibe como parametro el json que es datos. hace las validaciones y si todo es correcto entonces se activa el estado Active
+        // y uso el navigate para mandarlo a la pagina principal que es la de productos 
+        if (UserName === "" && Password ===""){
+            setMesasageError("Error, asegurate de que hayas rellenado los campos correctamente");
+            setActive(true);
+            
+
+        } else if (data[0].usuario === UserName && data[0].contraseña === Password) {
             console.log("Es válido");
             setActive(false); //quito la alerta
-            setAcceso(true);
-           navigate("/Productos");
+            setAcceso(true); 
+           navigate("/Principal");
 
         } else {
-            setActive(true);
-            console.log("Inválido");
+            setMesasageError("Usuario o contraseña incorrectos. Por favor, inténtelo de nuevo.");
+            setActive(true);    // este es el estado de la alerta
+    
 
         };
 
     };
-
-
-
 
     return (
         <>
@@ -99,13 +117,7 @@ const navigate = useNavigate();
                     ))}
                     <Button type="submit">{InfoRegister.Login.login}</Button>
                         {
-                            Active && <AlertError messageError={ActiveAlert.message}
-                                                top={ActiveAlert.top}
-                                                left={ActiveAlert.left}
-                                                width={ActiveAlert.width}
-                                                background={ActiveAlert.backgraund}
-                                                color={ActiveAlert.color}
-                            ></AlertError>
+                            Active && <AlertError messageError={MesasageError} primary></AlertError>
                         }
                 </Container>
                 <ImageWithCaption

@@ -2,12 +2,12 @@ import Input from "../Atoms/Input";
 import styled from 'styled-components';
 
 
-function Field({ type, name, accept, primary, secundary, onChange }) {
+function Field({ type, name, accept, primary, secundary, onChange, onblur }) {
     return (
         <>
   
             <Label primary={primary} secundary= {secundary} > {name}
-            <Input type={type} name={name} accept={accept}  primary ={primary} onChange={onChange} ></Input>
+            <Input type={type} name={name} accept={accept}  primary ={primary} onChange={onChange} onblur={onblur} ></Input>
              </Label>
            
         </>

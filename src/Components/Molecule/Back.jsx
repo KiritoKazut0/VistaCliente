@@ -1,15 +1,12 @@
 import styled from 'styled-components';
 import { IoArrowBackSharp } from "react-icons/io5";
 import { Link } from 'react-router-dom';
-function Nav() {
-
-
+function Nav({ruta}) {
     return (
         <NavStyle>
-            <Link to={"/Productos"}>
+            <Link to={ruta}>
             <IconBack />
             </Link>    
-
         </NavStyle>
 
     );

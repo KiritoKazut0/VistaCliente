@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import Login from './Components/Organisms/Login.jsx'
-import AddProduct from './Components/Organisms/AddProdut.jsx'
+import Principal from './Pages/Principal.jsx'
+import AddProduct from './Components/Organisms/AddProduct.jsx'
 import UploadProduct from './Components/Organisms/UploadProduct.jsx'
-
 // importacion de mi contexto 
 import userContext from './Context/UserContext.js'
 //-------------------------------------------
@@ -13,7 +13,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import Products from './Components/Organisms/Products.jsx'
+
 
 const router = createBrowserRouter([
 
@@ -22,8 +22,8 @@ const router = createBrowserRouter([
     element: <Login/>,
  
   }, {
-    path: "/Productos",
-    element: <Products/>
+    path: "/Principal",
+    element: <Principal/>
   },{
     path: "/Add-Productos",
     element: <AddProduct/>
