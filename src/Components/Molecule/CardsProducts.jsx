@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -8,14 +8,53 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { RiArrowDropDownLine, RiEditLine } from "react-icons/ri";
 import styled from 'styled-components'; // Importa styled-components
 import ContainerIcon from '../Atoms/Button';
-import { Link } from 'react-router-dom';
 
-function CardProducts({ name, brand, src }) {
+import SendProductContext from '../../Context/SendDateContext';
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import Delete from '@mui/icons-material/Delete';
+
+function CardProducts({ name, brand, src, description, id }) {
     const [isStackVisible, setStackVisibility] = useState(false);
+    const DateProduct = useContext(SendProductContext);
+    const navigate = useNavigate();
 
     const toggleStackVisibility = () => {
         setStackVisibility(!isStackVisible);
     };
+
+    useEffect(() => {}, [DateProduct]);
+
+    // funcion eliminar
+    const handlerDeleted = ()=>{
+        try {
+            const requestOpcions = { method: `DELETE` }; 
+
+         const response =fetch (`http://localhost:8080/api/producto/${id}`, requestOpcions);
+            if (!response.ok) {throw new Error ('Error en la solicitud')}
+            
+            alert ("Producto eliminado");
+
+        } catch (error) {
+            alert ("se ah producido un error");
+
+        }
+    }
+
+
+
+
+
+    const handlerEditar = () => {
+        DateProduct.setNombre(name);
+        DateProduct.setMarca(brand);
+        DateProduct.setDescripcion(description);
+        DateProduct.setImg(src);
+        DateProduct.setId(id);
+        navigate('/Upload-Products');
+    }
+
+
 
     return (
         <CardStyled sx={{
@@ -35,14 +74,12 @@ function CardProducts({ name, brand, src }) {
                 </ContainerIcon>
                 {isStackVisible && (
                     <StackContainer>
-                        <Button variant="outlined" startIcon={<DeleteIcon />} onClick={""}>
+                        <Button variant="outlined" startIcon={<DeleteIcon />} onClick={handlerDeleted} >
                             Eliminar
                         </Button>
-                        <Link to={"/Upload-Products"}>
-                            <Button variant="outlined" endIcon={<RiEditLine />}>
+                            <Button variant="outlined" endIcon={<RiEditLine />} onClick={handlerEditar}>
                                 Editar
                             </Button>
-                        </Link>
                     </StackContainer>
                 )}
             </CardContent>

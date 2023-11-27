@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-function Input({ placeholder, type, name, accept, primary, onChange , onblur, error}) {
+function Input({ placeholder, type, name, accept, primary, onChange , onblur, error, value}) {
     return (
         <div>
             <StyleInput placeholder={placeholder}
@@ -11,6 +11,7 @@ function Input({ placeholder, type, name, accept, primary, onChange , onblur, er
                 onChange={onChange}
                 onBlur={onblur}
                 error = {error}
+                value={value}
             ></StyleInput>
         </div>
 
