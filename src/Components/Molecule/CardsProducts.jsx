@@ -26,21 +26,22 @@ function CardProducts({ name, brand, src, description, id }) {
     useEffect(() => {}, [DateProduct]);
 
     // funcion eliminar
-    const handlerDeleted = ()=>{
+    const handlerDeleted = async () => {
         try {
-            const requestOpcions = { method: `DELETE` }; 
+            const requestOptions = { method: 'DELETE' };
 
-         const response =fetch (`http://localhost:8080/api/producto/${id}`, requestOpcions);
-            if (!response.ok) {throw new Error ('Error en la solicitud')}
+            const response = await fetch(`http://localhost:8080/api/producto/${id}`, requestOptions);
             
-            alert ("Producto eliminado");
+            if (!response.ok) {
+                throw new Error('Error en la solicitud');
+            }
+
+            alert("Producto eliminado");
 
         } catch (error) {
-            alert ("se ah producido un error");
-
+            alert("Se ha producido un error");
         }
     }
-
 
 
 
@@ -59,7 +60,7 @@ function CardProducts({ name, brand, src, description, id }) {
     return (
         <CardStyled sx={{
             boxShadow: "0px 0px 5px 1px",
-            
+
         }}>
             <CardMedia component="img" height="250" image={src} />
             <CardContent >
@@ -69,6 +70,8 @@ function CardProducts({ name, brand, src, description, id }) {
                 <Typography variant="h8" component="div" sx={{ textAlign: "center" }}>
                     {brand}
                 </Typography>
+                <br />
+
                 <ContainerIcon dropdown onClick={toggleStackVisibility}>
                     <Dropdawn />
                 </ContainerIcon>
@@ -77,9 +80,9 @@ function CardProducts({ name, brand, src, description, id }) {
                         <Button variant="outlined" startIcon={<DeleteIcon />} onClick={handlerDeleted} >
                             Eliminar
                         </Button>
-                            <Button variant="outlined" endIcon={<RiEditLine />} onClick={handlerEditar}>
-                                Editar
-                            </Button>
+                        <Button variant="outlined" endIcon={<RiEditLine />} onClick={handlerEditar}>
+                            Editar
+                        </Button>
                     </StackContainer>
                 )}
             </CardContent>
@@ -100,7 +103,7 @@ const CardStyled = styled(Card)`
 
     @media only screen and (min-width: 1200px) {
         max-width: 300px;
-        height: 58vh;
+        height: 60vh;
     }
     
 `;

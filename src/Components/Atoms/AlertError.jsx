@@ -1,21 +1,21 @@
 import Alert from '@mui/material/Alert';
 
-function AlertError({  messageError, primary, addProduct, show}) {
+function AlertError({  messageError, primary, addProduct, show, password}) {
 
   return (
     <Alert
       sx={{
         position: "absolute",
-        top: primary ? "75%" : addProduct? "80%": "80%",
-        width: primary? "33%":addProduct? "33%": "80%",
-        left: primary? "10%": addProduct? "10%": "10%",
+        top: primary ? "75%" : addProduct? "80%": password? "": "80%",
+        width: primary? "33%":addProduct? "33%": password? "60%":  "80%",
+        left: primary? "10%": addProduct? "10%": password? "0":  "10%",
         fontSize: "15px",
-        background: primary?"none": addProduct? "none": "#ee2b2b",
-        color: primary? "red": addProduct? "red": "white",
+        background: primary?"none": addProduct? "none": password? "none":  "#ee2b2b",
+        color: primary? "red": addProduct? "red":password? "red":  "white",
         overflow: "hidden",
-        display:primary ? "": addProduct? "": `${show}`,
+        display:primary ? "": addProduct? "":password? "":  `${show}`,
         "& .MuiSvgIcon-root": {
-          color: primary? "red": addProduct? "": "white"
+          color: primary? "red": addProduct? "": password? "red":  "white"
         }
        
       }}

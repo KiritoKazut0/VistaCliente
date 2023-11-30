@@ -177,7 +177,7 @@ function UploadProduct() {
 
                             {InfoUploadProduct.UploadProduct.addButton}
                         </Button>
-                        {ActiveAlert && <AlertError messageError={MessageErrorCamp} addProduct></AlertError>}
+                        {ActiveAlert && <AlertError messageError={MessageErrorCamp}  password></AlertError>}
                     </Container>
 
                     <ImageWithCaption

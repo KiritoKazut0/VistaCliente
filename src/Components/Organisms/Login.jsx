@@ -16,8 +16,7 @@ import ChangePassword from "../../Context/ChangePassword";
 
 function Login() {
     // uso del contexto 
-    const {Acceso} = useContext(userContext);
-    const SavePassword = useContext (ChangePassword);
+    const SavePasswordC = useContext (ChangePassword);
 
     // estados: 
     const [UserName, setUserName] = useState("");
@@ -34,8 +33,6 @@ const {setAcceso} = useContext(userContext);
 
 //navigate me sirve para redireccionar al usario una vez que el acceso haya sido verdadero
 const navigate = useNavigate();
-
-useEffect(() => { console.log(SavePassword.NewPassword) }, [ SavePassword.NewPassword ]);
 
     //este hook me sirve para que mi estado se este actualizando cada vez que se este presionando una tecla
     const handlerUserName = (event) => {
@@ -91,9 +88,8 @@ useEffect(() => { console.log(SavePassword.NewPassword) }, [ SavePassword.NewPas
             
 
         } else if (data[0].usuario === UserName && data[0].contraseña === Password) {
-           SavePassword.setNewPassword(data[0].contraseña);
-           SavePassword.setIDCliente = (data [0].id);
-    
+           SavePasswordC.setSavePassword (data[0].contraseña);
+           SavePasswordC.setIdCliente(data[0].id);
             console.log("Es válido");
             setActive(false); //quito la alerta
             setAcceso(true); 
