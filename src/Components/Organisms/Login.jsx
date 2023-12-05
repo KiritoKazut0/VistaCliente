@@ -61,7 +61,7 @@ const navigate = useNavigate();
    const obtenerDatosCliente = (event)=>{
     event.preventDefault(); 
 
-    fetch("http://localhost:8080/api/Cliente")
+    fetch("http://52.45.183.82:3000/api/cliente")
     .then(response => {
         if (!response.ok) {
             throw new Error (`Error de red -Código: ${response.status}`);

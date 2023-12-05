@@ -15,7 +15,7 @@ function Products() {
 
     //conectamos la api 
     useEffect(() => {
-        fetch('http://localhost:8080/api/producto')
+        fetch('http://52.45.183.82:3000/api/producto')
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`La solicitud falló con el código ${response.status}`);
@@ -30,7 +30,7 @@ function Products() {
             .catch(error => {
                 console.error('Error al hacer la solicitud:', error);
             });
-    }, []);
+    }, [DataProduct]);
 
 
     

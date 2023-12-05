@@ -29,8 +29,9 @@ function CardProducts({ name, brand, src, description, id }) {
     const handlerDeleted = async () => {
         try {
             const requestOptions = { method: 'DELETE' };
-
-            const response = await fetch(`http://localhost:8080/api/producto/${id}`, requestOptions);
+            console.log(id);
+            const response = await fetch(`http://52.45.183.82:3000/api/producto/${id}`, requestOptions);
+            // http://52.45.183.82:3000/api/producto
             
             if (!response.ok) {
                 throw new Error('Error en la solicitud');

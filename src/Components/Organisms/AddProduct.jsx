@@ -71,7 +71,7 @@ function AddProduct() {
         body: formData,
       };
 
-      const response = await fetch('http://localhost:8080/upload/image', requestOptions);
+      const response = await fetch('http://52.45.183.82:3000/upload/image', requestOptions);
       if (!response.ok) { throw new Error('Error en la solicitud') }
 
       const result = await response.json();
@@ -109,7 +109,7 @@ function AddProduct() {
         body: formData
       };
 
-      const response = await fetch('http://localhost:8080/api/producto', requestOptions);
+      const response = await fetch('http://52.45.183.82:3000/api/producto', requestOptions);
       if (!response.ok) { throw new Error('Error en la solicitud') }
       alert("producto agregado");
 
